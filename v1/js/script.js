@@ -310,7 +310,7 @@ function renderSheetChat() {
   const chat = document.getElementById('ai-sheet-chat');
   const history = _aiContext === 'home' ? _homeHistory : _sheetHistory;
   const wandSvg = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11L5.5 6.5M7.5 1l.4 1.6L9.5 3l-1.6.4L7.5 5l-.4-1.6L5.5 3l1.6-.4L7.5 1z" stroke="#5f2eea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="8.5" r=".6" fill="#5f2eea"/></svg>';
-  const ava = `<img class="ai-sheet-ava-sm" src="assets/icons/icon-cat-bot.png" width="32" height="32" alt=""/>`;
+  const ava = `<img class="ai-sheet-ava-sm" src="../assets/icons/icon-cat-bot.png" width="32" height="32" alt=""/>`;
 
   if (!history.length) {
     if (_aiContext === 'home') {
