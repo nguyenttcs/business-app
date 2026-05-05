@@ -1,3 +1,21 @@
+/* ── FLOAT CHAT BTN WOBBLE ── */
+@keyframes cat-wobble {
+    0%   { transform: rotate(0deg) scale(1) }
+    15%  { transform: rotate(-15deg) scale(1.06) }
+    35%  { transform: rotate(13deg) scale(1.06) }
+    55%  { transform: rotate(-9deg) scale(1.02) }
+    75%  { transform: rotate(6deg) scale(1.01) }
+    100% { transform: rotate(0deg) scale(1) }
+}
+
+.float-chat-btn.wobbling {
+    animation: cat-wobble 0.55s cubic-bezier(0.25, 1, 0.5, 1)
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .float-chat-btn.wobbling { animation: none }
+}
+
 .stepbar {
     background: #fff;
     padding: 12px 16px 10px;

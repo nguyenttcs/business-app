@@ -531,6 +531,19 @@ function sendAiEdit() {
   }, 1100);
 }
 
+// Periodic wobble to draw attention to the AI chat button
+(function startWobbleLoop() {
+  function wobbleTick() {
+    const fab = document.getElementById('float-chat-btn');
+    if (fab && !fab.classList.contains('hidden')) {
+      fab.classList.add('wobbling');
+      fab.addEventListener('animationend', () => fab.classList.remove('wobbling'), { once: true });
+    }
+    setTimeout(wobbleTick, 5000);
+  }
+  setTimeout(wobbleTick, 3000);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   const trigger = document.getElementById('ai-upd-notif');
   if (!trigger) return;
