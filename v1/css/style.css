@@ -1320,7 +1320,8 @@
     background: linear-gradient(135deg, #F0EEFF, #EAE6FD);
     border-radius: 18px;
     padding: 12px 14px;
-    border: 0.5px solid #DDD9F8
+    border: 0.5px solid #DDD9F8;
+    margin-bottom: 16px
 }
 
 .camp-top-row {
@@ -1671,6 +1672,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center
+}
+
+.msg-hd-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
 }
 
 .msg-hd-lbl {

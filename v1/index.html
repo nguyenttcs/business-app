@@ -149,13 +149,13 @@
             </div>
             <div class="qs-tag" style="background:#E3DFFC;color:#5f2eea">23% return rate</div>
           </div>
-          <div class="qs-card" onclick="startFlow('Create a Halloween weekend nail campaign.')">
-            <div class="qs-ico" style="background:#E0EEFF"><img src="../assets/icons/icon-halloween.svg" width="20" height="20" alt=""/></div>
+          <div class="qs-card" onclick="startFlow('Create a Summer Sale campaign to boost bookings.')">
+            <div class="qs-ico" style="background:#FFF0E0"><img src="../assets/icons/icon-summer-sale.svg" width="20" height="20" alt=""/></div>
             <div class="qs-cnt">
-              <div class="qs-name">Halloween Season</div>
-              <div class="qs-desc">Coffin sets, dark florals, chrome tips — last Halloween: 61 extra bookings over one weekend</div>
+              <div class="qs-name">Summer Sale ☀️</div>
+              <div class="qs-desc">Beat the slow season — a flash deal sent Tuesday morning fills your week within 48 hours</div>
             </div>
-            <div class="qs-tag" style="background:#E0EEFF;color:#1c6bea">↑ 61 bookings</div>
+            <div class="qs-tag" style="background:#FFF0E0;color:#F97316">+48h bookings</div>
           </div>
           <div class="qs-card" onclick="startFlow('Send a Happy Friday message to fill weekend slots.')">
             <div class="qs-ico" style="background:#FDF0C1"><img src="../assets/icons/icon-happy-friday.svg" width="20" height="20" alt=""/></div>
@@ -255,14 +255,16 @@
 
         <!-- 2. Message Preview -->
         <div class="msg-card">
-          <span class="msg-hd-lbl">Message Preview</span>
+          <div class="msg-hd-row">
+            <span class="msg-hd-lbl">Message Preview</span>
+            <button class="btn-regen" id="btn-regen" onclick="regenMsg()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8A6 6 0 1 1 10.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 1v3H13.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Regenerate</button>
+          </div>
           <div class="msg-bubble">
             <div id="sms-msg">
               <div class="msg-tag">SMS MESSAGE</div>
               <div class="msg-txt">Hi <span class="msg-hl">[Name]</span>, Mother's Day is almost here! Enjoy 15% OFF your next visit. Treat yourself or gift someone special a relaxing nail session. Book this weekend!</div>
             </div>
           </div>
-          <button class="btn-regen" id="btn-regen" onclick="regenMsg()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8A6 6 0 1 1 10.5 3" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 1v3H13.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Regenerate</button>
         </div>
 
       </div>
