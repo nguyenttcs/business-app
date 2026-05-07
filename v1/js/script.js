@@ -365,6 +365,9 @@ function renderSheetChat() {
       </div>
     </div>`;
   }).join('');
+
+  const sheet = document.getElementById('ai-sheet');
+  if (sheet) sheet.classList.toggle('expanded', history.length >= 3);
 }
 
 function selectHomeSuggestion(idx) {

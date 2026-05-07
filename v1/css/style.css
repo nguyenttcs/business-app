@@ -2665,6 +2665,9 @@ svg {
 .ai-sheet.open {
     transform: translateY(0)
 }
+.ai-sheet.expanded {
+    height: 78%
+}
 .ai-sheet-handle-row {
     display: flex;
     justify-content: center;
