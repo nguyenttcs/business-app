@@ -48,8 +48,6 @@ let _campaignDirty = false;
 
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const fab=document.getElementById('float-chat-btn');
-  if(fab) fab.classList.toggle('hidden', id !== 's1' && id !== 's-home');
   setTimeout(()=>{
     const t=document.getElementById(id);
     if(t){t.classList.add('active');const sc=t.querySelector('.cs');if(sc)setTimeout(()=>sc.scrollTop=sc.scrollHeight,60);if(id==='s2')renderStores();}
@@ -555,19 +553,6 @@ function sendAiEdit() {
     inp.disabled = false;
   }, 1100);
 }
-
-// Periodic wobble to draw attention to the AI chat button
-(function startWobbleLoop() {
-  function wobbleTick() {
-    const fab = document.getElementById('float-chat-btn');
-    if (fab && !fab.classList.contains('hidden')) {
-      fab.classList.add('wobbling');
-      fab.addEventListener('animationend', () => fab.classList.remove('wobbling'), { once: true });
-    }
-    setTimeout(wobbleTick, 5000);
-  }
-  setTimeout(wobbleTick, 3000);
-})();
 
 document.addEventListener('DOMContentLoaded', () => {
   const trigger = document.getElementById('ai-upd-notif');
