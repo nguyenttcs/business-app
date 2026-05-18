@@ -1,3 +1,411 @@
+/* ── USER ACCOUNT SCREEN ── */
+#s-account {
+    background: #F2F2F6
+}
+.ua-header {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.06)
+}
+.ua-back {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 4px;
+    -webkit-tap-highlight-color: transparent
+}
+.ua-header-title {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #444149;
+    line-height: 28px
+}
+
+.ua-profile {
+    background: #fff;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0
+}
+.ua-profile-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0
+}
+.ua-ava-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0
+}
+.ua-ava-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block
+}
+.ua-ava-edit {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 0.5px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12);
+    cursor: pointer
+}
+.ua-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0
+}
+.ua-profile-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #444149;
+    line-height: 1.4
+}
+.ua-profile-role {
+    background: #514fc6;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    align-self: flex-start;
+    line-height: 16px
+}
+.ua-coin {
+    background: #ffefc0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-right: 8px;
+    border-radius: 24px;
+    flex-shrink: 0
+}
+.ua-coin-ico {
+    width: 28px;
+    height: 28px;
+    background: #fbc13c;
+    border: 0.5px solid #ffeaaa;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(80,56,8,0.25)
+}
+.ua-coin-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d9962a;
+    min-width: 32px;
+    text-align: center
+}
+
+.ua-tabs {
+    background: #fff;
+    display: flex;
+    border-bottom: 1px solid #D5D5D7;
+    flex-shrink: 0;
+    padding-top: 12px
+}
+.ua-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent
+}
+.ua-tab span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #6D6B72;
+    line-height: 24px
+}
+.ua-tab.active span {
+    color: #5F2EEA
+}
+.ua-tab-underline {
+    height: 2px;
+    width: 100%;
+    background: #5F2EEA;
+    opacity: 0
+}
+.ua-tab.active .ua-tab-underline {
+    opacity: 1
+}
+
+.ua-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch
+}
+.ua-scroll::-webkit-scrollbar { display: none }
+
+.ua-tab-panel {
+    display: none;
+    flex-direction: column;
+    gap: 24px
+}
+.ua-tab-panel.active {
+    display: flex
+}
+
+.ua-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08)
+}
+
+.ua-store-card {
+    display: flex;
+    flex-direction: column
+}
+.ua-store-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #EAEAEB;
+    gap: 8px
+}
+.ua-store-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0
+}
+.ua-store-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #7C5CBF, #5f2eea);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .02em;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center
+}
+.ua-store-logo.has-img span { display: none }
+.ua-store-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #444149;
+    line-height: 28px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.ua-store-list-link {
+    background: transparent;
+    border: none;
+    color: #5F2EEA;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0
+}
+
+.ua-store-stats {
+    display: flex
+}
+.ua-stat {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-right: 1px solid #EAEAEB;
+    font-size: 16px;
+    color: #444149
+}
+.ua-stat.ua-stat-last {
+    border-right: none
+}
+.ua-stat span {
+    line-height: 24px
+}
+
+.ua-store-addr {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid #EAEAEB;
+    font-size: 16px;
+    color: #444149;
+    line-height: 24px
+}
+.ua-store-addr svg { flex-shrink: 0; margin-top: 4px }
+
+.ua-quick {
+    display: flex;
+    padding: 16px 0
+}
+.ua-quick-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent
+}
+.ua-quick-ico {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.ua-quick-lbl {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444149;
+    line-height: 16px
+}
+
+.ua-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+.ua-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #444149;
+    line-height: 24px
+}
+
+.ua-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px
+}
+.ua-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #EAEAEB;
+    background: transparent;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%
+}
+.ua-row:last-child { border-bottom: none }
+.ua-row-left {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+.ua-row-lbl {
+    font-size: 16px;
+    font-weight: 600;
+    color: #444149;
+    line-height: 24px
+}
+.ua-row-brand {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0
+}
+.ua-row-chev { flex-shrink: 0 }
+
+.ua-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: #E24533;
+    line-height: 20px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .12s
+}
+.ua-logout:active {
+    background: #FFF5F4
+}
+
+.ua-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 60px 24px;
+    text-align: center
+}
+.ua-placeholder-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #444149;
+    margin-top: 8px
+}
+.ua-placeholder-sub {
+    font-size: 13px;
+    color: #828086;
+    line-height: 1.45
+}
+
 /* ── FLOAT CHAT BTN WOBBLE ── */
 @keyframes cat-wobble {
     0%   { transform: rotate(0deg) scale(1) }

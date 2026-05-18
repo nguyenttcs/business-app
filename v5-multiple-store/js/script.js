@@ -756,7 +756,8 @@ const _HOME_STORES = [
   {
     id: 'laflor',
     name: 'La Flor Nails & Spa',
-    address: '11011 Richmond Ave, Ste 900, Houston',
+    address: '11011 Richmond Ave, Ste 900, Houston, TX 77042',
+    logoUrl: '../assets/icons/store-laflor.png',
     color: 'linear-gradient(135deg, #7C5CBF, #5f2eea)',
     initial: 'LF',
     role: 'owner',
@@ -855,6 +856,36 @@ function applyStore(id) {
   // Marketing slider thumb (0–1)
   const thumb = document.getElementById('hm-slider-thumb');
   if (thumb) thumb.style.left = (s.mktLevel * 100) + '%';
+
+  // User Account screen sync
+  const uaName = document.getElementById('ua-store-name');
+  const uaAddr = document.getElementById('ua-store-addr');
+  const uaLogo = document.getElementById('ua-store-logo');
+  const uaInit = document.getElementById('ua-store-logo-init');
+  if (uaName) uaName.textContent = s.name;
+  if (uaAddr) uaAddr.textContent = s.address;
+  if (uaInit) uaInit.textContent = s.initial;
+  if (uaLogo) {
+    if (s.logoUrl) {
+      uaLogo.style.background = '';
+      uaLogo.style.backgroundImage = `url('${s.logoUrl}')`;
+      uaLogo.style.backgroundSize = 'cover';
+      uaLogo.style.backgroundPosition = 'center';
+      uaLogo.classList.add('has-img');
+    } else {
+      uaLogo.style.backgroundImage = '';
+      uaLogo.style.background = s.color;
+      uaLogo.classList.remove('has-img');
+    }
+  }
+}
+
+function uaSwitchTab(btn, tab) {
+  document.querySelectorAll('#s-account .ua-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#s-account .ua-tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('ua-panel-' + tab);
+  if (panel) panel.classList.add('active');
 }
 
 function _renderStoreList(query) {
