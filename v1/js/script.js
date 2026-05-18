@@ -284,44 +284,44 @@ const _SUGGESTIONS = [
     type: 'campaign',
   },
   {
-    label: "📊 Campaign 'We Miss You' đang chạy thế nào?",
-    userMsg: "Campaign 'We Miss You' đang chạy thế nào?",
-    aiMsg: "Đang tốt! Booking rate 23%, thu $4.2K trong 30 ngày. Tiến độ 65% — còn 12 ngày nữa.",
+    label: "📊 How is the 'We Miss You' campaign performing?",
+    userMsg: "How is the 'We Miss You' campaign performing?",
+    aiMsg: "Going well! Booking rate 23%, earned $4.2K in 30 days. 65% complete — 12 days to go.",
     type: 'question',
     followUps: [
-      { label: "💡 Có thể cải thiện thêm không?", userMsg: "Có thể cải thiện thêm không?", aiMsg: "Có! Gửi thêm 1 reminder vào Thứ Sáu 9AM — các salon tương tự tăng 18% booking với cách này." },
-      { label: "📅 Điều chỉnh thời gian gửi được không?", userMsg: "Điều chỉnh thời gian gửi được không?", aiMsg: "Được! Chuyển sang Thứ Sáu 9AM thay vì Thứ Ba — khách mở tin buổi sáng cuối tuần cao hơn 2.1×." },
+      { label: "💡 Anything we can improve?", userMsg: "Anything we can improve?", aiMsg: "Yes! Add a reminder on Friday 9AM — similar salons see an 18% lift in bookings with this tweak." },
+      { label: "📅 Can we adjust the send time?", userMsg: "Can we adjust the send time?", aiMsg: "Sure! Move to Friday 9AM instead of Tuesday — clients open weekend morning messages 2.1× more." },
     ],
   },
   {
-    label: "💡 AI có gợi ý gì để cải thiện campaign đang chạy?",
-    userMsg: "AI có gợi ý gì để cải thiện campaign đang chạy?",
-    aiMsg: "2 gợi ý nhanh: 1) Thêm emoji vào SMS — tăng open rate 14%. 2) Gửi 10AM thay 2PM — khách mở tin buổi sáng nhiều hơn 2.3×.",
+    label: "💡 Any AI tips to improve my running campaign?",
+    userMsg: "Any AI tips to improve my running campaign?",
+    aiMsg: "2 quick tips: 1) Add emoji to SMS — open rate +14%. 2) Send at 10AM instead of 2PM — clients open morning messages 2.3× more.",
     type: 'question',
     followUps: [
-      { label: "✅ Áp dụng gợi ý này ngay", userMsg: "Áp dụng gợi ý này ngay", aiMsg: "Đã cập nhật! SMS thêm emoji và đổi lịch sang 10AM. Bạn sẽ thấy kết quả sau 48 giờ." },
-      { label: "📊 Xem số liệu chi tiết hơn", userMsg: "Xem số liệu chi tiết hơn", aiMsg: "Open rate: 38% (TB ngành 24%). Click rate: 12%. Khách quay lại: 23 người. Revenue $4.2K — vượt mục tiêu 15%." },
+      { label: "✅ Apply these tips now", userMsg: "Apply these tips now", aiMsg: "Done! SMS updated with emoji and rescheduled to 10AM. You'll see results within 48 hours." },
+      { label: "📊 Show me detailed stats", userMsg: "Show me detailed stats", aiMsg: "Open rate: 38% (industry avg 24%). Click rate: 12%. Returning clients: 23. Revenue $4.2K — 15% above target." },
     ],
   },
 ];
 
 const _HOME_SUGGESTIONS = [
   {
-    label: "📊 Income tháng này của mình là bao nhiêu?",
-    userMsg: "Income tháng này của mình là bao nhiêu?",
-    aiMsg: "Tháng này bạn thu <strong>$161.2K</strong> — tăng 12% so với tháng trước. Net income sau chi phí là <strong>$61.2K</strong>.",
+    label: "📊 What's my income this month?",
+    userMsg: "What's my income this month?",
+    aiMsg: "This month you earned <strong>$161.2K</strong> — up 12% vs last month. Net income after expenses is <strong>$61.2K</strong>.",
   },
   {
-    label: "📅 Tuần này có bao nhiêu khách đã booking?",
-    userMsg: "Tuần này có bao nhiêu khách đã booking?",
-    aiMsg: "Tuần này có <strong>87 khách</strong> booking — cao hơn 23% so với tuần trước. Thứ Sáu và Thứ Bảy chiếm 62% tổng lượng.",
+    label: "📅 How many bookings this week?",
+    userMsg: "How many bookings this week?",
+    aiMsg: "This week has <strong>87 bookings</strong> — 23% higher than last week. Friday and Saturday account for 62% of the volume.",
   },
   {
-    label: "🗓️ Tuần tới có ngày lễ nào nên chuẩn bị campaign không?",
-    userMsg: "Tuần tới có ngày lễ nào nên chuẩn bị campaign không?",
-    aiMsg: "Mother's Day là 11/05 — còn 7 ngày. Năm ngoái đây là weekend đông nhất với <strong>89 booking mới</strong>. Nên bắt đầu campaign ngay hôm nay!",
+    label: "🗓️ Any upcoming holidays to plan a campaign for?",
+    userMsg: "Any upcoming holidays to plan a campaign for?",
+    aiMsg: "Mother's Day is on May 11 — 7 days away. Last year it was your busiest weekend with <strong>89 new bookings</strong>. You should start a campaign today!",
     cta: true,
-    ctaLabel: "Tạo Campaign →",
+    ctaLabel: "Create Campaign →",
     ctaTarget: "s1",
   },
 ];
@@ -335,7 +335,7 @@ function renderSheetChat() {
   if (!history.length) {
     if (_aiContext === 'home') {
       chat.innerHTML = `<div class="sheet-suggestions">
-        <p class="sheet-sugg-lbl">Hỏi về business của bạn</p>
+        <p class="sheet-sugg-lbl">Ask about your business</p>
         ${_HOME_SUGGESTIONS.map((s, i) => `<button class="sheet-sugg-chip" onclick="selectHomeSuggestion(${i})">${s.label}</button>`).join('')}
       </div>`;
     } else {
