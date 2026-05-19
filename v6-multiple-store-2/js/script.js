@@ -777,6 +777,9 @@ const _HOME_STORES = [
     id: 'laflor',
     name: 'La Flor Nails & Spa',
     address: '11011 Richmond Ave, Ste 900, Houston, TX 77042',
+    phone: '(205) 205-2052',
+    isOpen: true,
+    closes: '8PM',
     logoUrl: '../assets/icons/store-laflor.png',
     color: 'linear-gradient(135deg, #7C5CBF, #5f2eea)',
     initial: 'LF',
@@ -797,6 +800,9 @@ const _HOME_STORES = [
     id: 'luxe-westside',
     name: 'Luxe Nails Westside',
     address: '450 Oak Avenue, Brooklyn, NY 11201',
+    phone: '(347) 555-0181',
+    isOpen: true,
+    closes: '9PM',
     color: 'linear-gradient(135deg, #F4A074, #E88F6E)',
     initial: 'LW',
     role: 'partner',
@@ -816,6 +822,9 @@ const _HOME_STORES = [
     id: 'bella-midtown',
     name: 'Bella Spa Midtown',
     address: '230 W 42nd St, New York, NY 10036',
+    phone: '(212) 555-0299',
+    isOpen: false,
+    closes: '10PM',
     color: 'linear-gradient(135deg, #34D399, #059669)',
     initial: 'BM',
     role: 'owner',
@@ -997,6 +1006,87 @@ function clearStoreListPageSearch() {
 function openStoreInfo(id) {
   window._viewingStoreId = id;
   goTo('s-store-info');
+  setTimeout(siRender, 30);
+}
+
+function siRender() {
+  const s = _getStore(window._viewingStoreId);
+  if (!s) return;
+  const ava = document.getElementById('si-avatar');
+  const init = document.getElementById('si-avatar-init');
+  if (ava) ava.style.background = s.color || '#5f2eea';
+  if (init) init.textContent = s.initial || s.name.slice(0, 2).toUpperCase();
+  const nameEl = document.getElementById('si-name');
+  if (nameEl) nameEl.textContent = s.name;
+  const statusEl = document.getElementById('si-status');
+  if (statusEl) {
+    statusEl.textContent = s.isOpen ? 'Open' : 'Closed';
+    statusEl.classList.toggle('closed', !s.isOpen);
+  }
+  const hoursTxt = document.getElementById('si-hours-txt');
+  if (hoursTxt) hoursTxt.textContent = (s.isOpen ? 'Closes ' : 'Opens ') + (s.closes || '8PM');
+  const addrEl = document.getElementById('si-address');
+  if (addrEl) addrEl.textContent = s.address || '';
+  const phoneEl = document.getElementById('si-phone');
+  if (phoneEl) phoneEl.textContent = s.phone || '';
+
+  const stats = s.stats || {};
+  const sqftEl = document.getElementById('si-sqft');
+  const staffEl = document.getElementById('si-staff');
+  const chairsEl = document.getElementById('si-chairs');
+  if (sqftEl) sqftEl.value = stats.sqft ?? '';
+  if (staffEl) staffEl.value = stats.staff ?? '';
+  if (chairsEl) chairsEl.value = stats.chairs ?? '';
+
+  // Reset dirty + tabs
+  _siBaseline = JSON.stringify({sqft: stats.sqft, staff: stats.staff, chairs: stats.chairs});
+  siCheckDirty();
+  const ovTab = document.querySelector('#s-store-info .si-tab[data-tab="overview"]');
+  if (ovTab) siSwitchTab(ovTab, 'overview');
+}
+
+let _siBaseline = '';
+function siCheckDirty() {
+  const sqft = document.getElementById('si-sqft')?.value.trim();
+  const staff = document.getElementById('si-staff')?.value.trim();
+  const chairs = document.getElementById('si-chairs')?.value.trim();
+  const cur = JSON.stringify({
+    sqft: sqft === '' ? undefined : Number(sqft),
+    staff: staff === '' ? undefined : Number(staff),
+    chairs: chairs === '' ? undefined : Number(chairs)
+  });
+  const dirty = cur !== _siBaseline && sqft !== '' && staff !== '' && chairs !== '';
+  const btn = document.getElementById('si-save-btn');
+  if (btn) btn.disabled = !dirty;
+}
+
+function siSwitchTab(btn, tab) {
+  document.querySelectorAll('#s-store-info .si-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#s-store-info .si-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('si-panel-' + tab);
+  if (panel) panel.classList.add('active');
+}
+
+function siSave() {
+  const s = _getStore(window._viewingStoreId);
+  if (!s) return;
+  const sqft = Number(document.getElementById('si-sqft').value);
+  const staff = Number(document.getElementById('si-staff').value);
+  const chairs = Number(document.getElementById('si-chairs').value);
+  s.stats = { sqft, staff, chairs };
+  // Re-render Home if we just edited the currently selected store
+  if (s.id === _currentStoreId) applyStore(s.id);
+  // Toast: reuse store-toast UI
+  const t = document.getElementById('store-toast');
+  const tt = document.getElementById('store-toast-text');
+  if (t && tt) {
+    tt.textContent = 'Store info saved';
+    t.classList.add('show');
+    clearTimeout(window._storeToastT);
+    window._storeToastT = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+  siCheckDirty();
 }
 
 // Re-render store list page each time it becomes active
