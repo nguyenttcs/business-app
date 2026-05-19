@@ -46,7 +46,8 @@ const QA=[
 let qStep=0;const sel=new Set();const answers={};let curMulti=false;
 let _campaignDirty = false;
 
-const BNAV_SCREENS = ['s-home','s-booking','s-quick-sale','s-message','s-report'];
+const BNAV_SCREENS = ['s-home','s-booking','s-message','s-report'];
+let _qsReturn = 's-home';
 function updateBnav(id){
   const w=document.getElementById('bnav-wrap');
   if(!w) return;
@@ -60,6 +61,10 @@ function updateBnav(id){
 }
 function bnavGo(id){ goTo(id); }
 function goTo(id){
+  if(id==='s-quick-sale'){
+    const active=document.querySelector('.screen.active');
+    if(active && active.id!=='s-quick-sale') _qsReturn=active.id;
+  }
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const fab=document.getElementById('float-chat-btn');
   if(fab) fab.classList.toggle('hidden', id !== 's1' && id !== 's-home');
@@ -69,6 +74,7 @@ function goTo(id){
     if(t){t.classList.add('active');const sc=t.querySelector('.cs');if(sc)setTimeout(()=>sc.scrollTop=sc.scrollHeight,60);if(id==='s2')renderStores();}
   },150);
 }
+function qsBack(){ goTo(_qsReturn || 's-home'); }
 function startFlow(msg){ _campaignDirty = false; goTo('s3'); }
 function toggleStore(el){const chk=el.querySelector('.chk'),on=chk.classList.contains('on');if(on){chk.classList.remove('on');chk.innerHTML='';el.classList.remove('sel');}else{chk.classList.add('on');chk.innerHTML='<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';el.classList.add('sel');}document.querySelector('#s2 .sc-ta').textContent=[...document.querySelectorAll('#s2 .so')].every(o=>o.classList.contains('sel'))?'Deselect All':'Select All';}
 function toggleAll(btn){const opts=[...document.querySelectorAll('#s2 .so')],allOn=opts.every(o=>o.classList.contains('sel'));opts.forEach(o=>{const chk=o.querySelector('.chk');if(allOn){o.classList.remove('sel');chk.classList.remove('on');chk.innerHTML='';}else{o.classList.add('sel');chk.classList.add('on');chk.innerHTML='<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';}});btn.textContent=allOn?'Select All':'Deselect All';}
@@ -1119,3 +1125,34 @@ function selectStore(id) {
   const active = document.querySelector('.screen.active');
   updateBnav(active ? active.id : 's-home');
 })();
+
+/* ── QUICK SALE ── */
+function _qsParse(v) {
+  const n = parseFloat(String(v || '').replace(/[^0-9.]/g, ''));
+  return isFinite(n) && n >= 0 ? n : 0;
+}
+function qsCalc() {
+  const subEl = document.getElementById('qs-subtotal');
+  const tipEl = document.getElementById('qs-tip');
+  if (!subEl || !tipEl) return;
+  const total = _qsParse(subEl.value) + _qsParse(tipEl.value);
+  const totalEl = document.getElementById('qs-total-val');
+  if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+  const subClr = document.getElementById('qs-subtotal-clear');
+  const tipClr = document.getElementById('qs-tip-clear');
+  if (subClr) subClr.classList.toggle('show', !!subEl.value);
+  if (tipClr) tipClr.classList.toggle('show', !!tipEl.value);
+}
+function qsClearField(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = '';
+  qsCalc();
+  el.focus();
+}
+function qsPay() {
+  // Prototype: no-op for now
+}
+function qsZelle() {
+  // Prototype: no-op for now
+}

@@ -862,32 +862,56 @@
     </div>
   </div>
 
-  <div class="screen cs-screen" id="s-quick-sale">
-    <div class="hm-hdr-bg"></div>
-    <div class="hm-sb">
-      <span class="hm-sbt">9:41</span>
-      <div class="hm-sbi">
-        <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect x="0" y="4.5" width="2" height="6.5" rx="1" fill="white"/><rect x="4" y="2.5" width="2" height="8.5" rx="1" fill="white"/><rect x="8" y=".5" width="2" height="10.5" rx="1" fill="white"/><rect x="12" y="0" width="2" height="11" rx="1" fill="white"/></svg>
-        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="20" height="11" rx="2" stroke="white" stroke-opacity=".5"/><rect x="2" y="2" width="14" height="8" rx="1.3" fill="white" opacity=".8"/></svg>
-      </div>
-    </div>
-    <div class="hm-nav">
-      <div class="hm-ava" onclick="goTo('s-account')" style="cursor:pointer"><img src="../assets/images/image-avatar.png" width="32" height="32" alt=""/></div>
-      <button class="sc-chip sc-chip-dark" onclick="openStoreSheet()">
-        <span class="sc-chip-logo sc-chip-logo-sync"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4-1 11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 7l8-4z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.2" stroke="#fff" stroke-width="1.4"/><path d="M9 14.5c.8-1 1.8-1.5 3-1.5s2.2.5 3 1.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg></span>
-        <span class="sc-chip-name sc-chip-name-sync">La Flor Nails &amp; Spa</span>
-        <svg class="sc-chip-chev" width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="screen qs-screen" id="s-quick-sale">
+    <div class="sb"><span class="sbt">9:41</span><div class="sbi"><svg width="15" height="11" viewBox="0 0 15 11" fill="#1A1A2E"><rect x="0" y="4.5" width="2" height="6.5" rx="1"/><rect x="4" y="2.5" width="2" height="8.5" rx="1"/><rect x="8" y=".5" width="2" height="10.5" rx="1"/><rect x="12" y="0" width="2" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="20" height="11" rx="2" stroke="#1A1A2E" stroke-opacity=".5"/><rect x="2" y="2" width="14" height="8" rx="1.3" fill="#1A1A2E" opacity=".8"/></svg></div></div>
+    <div class="qs-hdr">
+      <button class="qs-back" onclick="qsBack()" aria-label="Back" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4L7 10L13 16" stroke="#444149" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="hm-notif">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16a2 2 0 0 0 4 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <div class="hm-badge">3</div>
+      <div class="qs-hdr-title">Quick Sale</div>
+    </div>
+
+    <div class="qs-scroll">
+      <div class="qs-fields">
+        <div class="qs-field">
+          <label class="qs-field-lbl" for="qs-subtotal">Subtotal</label>
+          <div class="qs-input-wrap">
+            <input class="qs-input" type="text" inputmode="decimal" placeholder="$0.00" id="qs-subtotal" oninput="qsCalc()" autocomplete="off"/>
+            <button class="qs-input-clear" id="qs-subtotal-clear" onclick="qsClearField('qs-subtotal')" aria-label="Clear" type="button">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="qs-field">
+          <label class="qs-field-lbl" for="qs-tip">Tip (Optional)</label>
+          <div class="qs-input-wrap">
+            <input class="qs-input" type="text" inputmode="decimal" placeholder="$0.00" id="qs-tip" oninput="qsCalc()" autocomplete="off"/>
+            <button class="qs-input-clear" id="qs-tip-clear" onclick="qsClearField('qs-tip')" aria-label="Clear" type="button">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="qs-field">
+          <label class="qs-field-lbl" for="qs-note">Note (Optional)</label>
+          <div class="qs-input-wrap qs-input-wrap-area">
+            <textarea class="qs-textarea" placeholder="Message" id="qs-note" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="qs-total">
+        <span class="qs-total-lbl">Total Amount</span>
+        <span class="qs-total-val" id="qs-total-val">$0.00</span>
       </div>
     </div>
-    <div class="cs-body">
-      <div class="cs-ico cs-ico-qs"><img src="../assets/icons/icon-quick-sale.svg" width="40" height="40" alt=""/></div>
-      <div class="cs-h1">Coming Soon</div>
-      <div class="cs-h2">Speed up walk-in checkouts<br/>with one tap.</div>
+
+    <div class="qs-actions">
+      <button class="qs-btn qs-btn-outline" onclick="qsPay()" type="button">Pay</button>
+      <button class="qs-btn qs-btn-primary" onclick="qsZelle()" type="button">Scan QR to Pay with Zelle</button>
     </div>
+    <div class="bnav-home-indicator"><span></span></div>
   </div>
 
   <div class="screen cs-screen" id="s-message">
