@@ -3696,7 +3696,7 @@ svg {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 16px 24px;
+    padding: 0 16px 110px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -4194,4 +4194,188 @@ svg {
     padding: 0;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent
+}
+
+/* ── BOTTOM NAV ── */
+.bnav-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    background: #fff;
+    border-top: 1px solid #eaeaeb;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    pointer-events: none
+}
+.bnav-wrap.show {
+    display: flex;
+    pointer-events: auto
+}
+.bnav {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: end;
+    padding: 12px 0 12px;
+    overflow: visible
+}
+.bnav-item {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    position: relative
+}
+.bnav-ico {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.bnav-ico-off { display: block }
+.bnav-ico-on { display: none }
+.bnav-item.bnav-on .bnav-ico-off { display: none }
+.bnav-item.bnav-on .bnav-ico-on { display: block }
+.bnav-lbl {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #6d6b72;
+    text-align: center;
+    white-space: nowrap
+}
+.bnav-item.bnav-on .bnav-lbl { color: #5f2eea }
+.bnav-badge {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(2px);
+    min-width: 16px;
+    height: 14px;
+    padding: 0 4px;
+    background: #e24533;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box
+}
+
+/* Quick Sale FAB (center slot, elevated above bar) */
+.bnav-fab-slot {
+    position: relative
+}
+.bnav-fab-slot::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px
+}
+.bnav-fab-slot .bnav-lbl { color: #6d6b72 }
+.bnav-fab {
+    position: absolute;
+    left: 50%;
+    top: -28px;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #13bc8e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(19, 188, 142, 0.32);
+    transition: transform 0.15s ease
+}
+.bnav-fab img { display: block }
+.bnav-fab-slot:active .bnav-fab { transform: translateX(-50%) scale(0.94) }
+.bnav-item.bnav-on.bnav-fab-slot .bnav-lbl { color: #13bc8e }
+
+.bnav-item:active .bnav-ico { transform: scale(0.94) }
+.bnav-item .bnav-ico { transition: transform 0.15s ease }
+
+/* iOS-style home indicator bar */
+.bnav-home-indicator {
+    height: 34px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.bnav-home-indicator > span {
+    width: 135px;
+    height: 5px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.3)
+}
+
+/* ── COMING-SOON SCREENS ── */
+.cs-screen {
+    background: #faf8f5
+}
+.cs-hdr {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-bottom: 1px solid #eaeaeb
+}
+.cs-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e
+}
+.cs-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 32px 140px;
+    text-align: center
+}
+.cs-ico {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #f0e9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px
+}
+.cs-ico-qs {
+    background: #d6f6ec
+}
+.cs-ico-qs img {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(73%) saturate(409%) hue-rotate(116deg) brightness(94%) contrast(86%)
+}
+.cs-h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e
+}
+.cs-h2 {
+    font-size: 14px;
+    color: #6d6b72;
+    line-height: 20px
 }

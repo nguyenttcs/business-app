@@ -46,10 +46,24 @@ const QA=[
 let qStep=0;const sel=new Set();const answers={};let curMulti=false;
 let _campaignDirty = false;
 
+const BNAV_SCREENS = ['s-home','s-booking','s-quick-sale','s-message','s-report'];
+function updateBnav(id){
+  const w=document.getElementById('bnav-wrap');
+  if(!w) return;
+  const show=BNAV_SCREENS.indexOf(id)>=0;
+  w.classList.toggle('show', show);
+  if(show){
+    w.querySelectorAll('.bnav-item').forEach(b=>{
+      b.classList.toggle('bnav-on', b.dataset.tab===id);
+    });
+  }
+}
+function bnavGo(id){ goTo(id); }
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const fab=document.getElementById('float-chat-btn');
   if(fab) fab.classList.toggle('hidden', id !== 's1' && id !== 's-home');
+  updateBnav(id);
   setTimeout(()=>{
     const t=document.getElementById(id);
     if(t){t.classList.add('active');const sc=t.querySelector('.cs');if(sc)setTimeout(()=>sc.scrollTop=sc.scrollHeight,60);if(id==='s2')renderStores();}
@@ -1092,4 +1106,9 @@ function selectStore(id) {
     card.classList.add('single');
   }
   applyStore(_currentStoreId);
+})();
+
+(function initBnav(){
+  const active = document.querySelector('.screen.active');
+  updateBnav(active ? active.id : 's-home');
 })();
