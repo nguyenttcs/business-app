@@ -762,6 +762,7 @@ const _HOME_STORES = [
     initial: 'LF',
     role: 'owner',
     trend: { dir: 'up', percent: '0.52%' },
+    stats: { sqft: 200, staff: 10, chairs: 8 },
     income: '$161.2K',
     change: '0.52%',
     net: '$61.2K',
@@ -780,6 +781,7 @@ const _HOME_STORES = [
     initial: 'LW',
     role: 'partner',
     trend: { dir: 'down', percent: '8%' },
+    stats: { sqft: 150, staff: 7, chairs: 6 },
     income: '$98.5K',
     change: '1.24%',
     net: '$42.8K',
@@ -798,6 +800,7 @@ const _HOME_STORES = [
     initial: 'BM',
     role: 'owner',
     trend: { dir: 'up', percent: '12%' },
+    stats: { sqft: 320, staff: 14, chairs: 12 },
     income: '$214.7K',
     change: '0.18%',
     net: '$89.3K',
@@ -887,6 +890,108 @@ function uaSwitchTab(btn, tab) {
   const panel = document.getElementById('ua-panel-' + tab);
   if (panel) panel.classList.add('active');
 }
+
+/* ── STORE LIST PAGE ── */
+function renderStoreListPage(query) {
+  const wrap = document.getElementById('sl-cards');
+  const empty = document.getElementById('sl-empty');
+  if (!wrap) return;
+  const q = (query || '').trim().toLowerCase();
+  const filtered = !q ? _HOME_STORES : _HOME_STORES.filter(s =>
+    s.name.toLowerCase().includes(q) || s.address.toLowerCase().includes(q)
+  );
+  if (empty) empty.classList.toggle('show', filtered.length === 0);
+
+  const ctaChev = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#5F2EEA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const currentCorner = `
+    <div class="sl-card-check" aria-label="Current store">
+      <svg class="sl-card-check-bg" viewBox="0 0 50 50" preserveAspectRatio="none">
+        <path d="M50 0 L0 0 L50 50 Z" fill="#5F2EEA"/>
+      </svg>
+      <svg class="sl-card-check-tick" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8.5l3.5 3.5L13 5" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>`;
+
+  wrap.innerHTML = filtered.map(s => {
+    const isCurrent = s.id === _currentStoreId;
+    const logoStyle = s.logoUrl
+      ? `background-image:url('${s.logoUrl}');background-size:cover;background-position:center`
+      : `background:${s.color}`;
+    const logoCls = s.logoUrl ? 'sl-card-logo has-img' : 'sl-card-logo';
+    const onClick = isCurrent ? '' : `switchStoreFromList('${s.id}')`;
+
+    return `
+      <div class="sl-card${isCurrent ? ' current' : ''}" ${onClick ? `onclick="${onClick}"` : ''}>
+        ${isCurrent ? currentCorner : ''}
+        <div class="sl-card-head">
+          <div class="${logoCls}" style="${logoStyle}"><span>${s.initial}</span></div>
+          <div class="sl-card-info">
+            <div class="sl-card-name-block">
+              <div class="sl-card-name">${s.name}</div>
+              <div class="sl-card-addr-txt">${s.address}</div>
+            </div>
+            ${isCurrent ? `<button class="sl-card-cta" onclick="event.stopPropagation();openStoreInfo('${s.id}')">Store Info ${ctaChev}</button>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function switchStoreFromList(id) {
+  if (id === _currentStoreId) return;
+  applyStore(id);
+  const s = _getStore(id);
+  const t = document.getElementById('store-toast');
+  const tt = document.getElementById('store-toast-text');
+  if (t && tt && s) {
+    tt.textContent = `Switched to ${s.name}`;
+    t.classList.add('show');
+    clearTimeout(window._storeToastT);
+    window._storeToastT = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+  // Re-render list to update current state visual
+  const inp = document.getElementById('sl-page-search-inp');
+  renderStoreListPage(inp ? inp.value : '');
+}
+
+function filterStoreListPage(q) {
+  const clr = document.getElementById('sl-page-search-clear');
+  if (clr) clr.classList.toggle('show', !!q);
+  renderStoreListPage(q);
+}
+
+function clearStoreListPageSearch() {
+  const inp = document.getElementById('sl-page-search-inp');
+  const clr = document.getElementById('sl-page-search-clear');
+  if (inp) { inp.value = ''; inp.focus(); }
+  if (clr) clr.classList.remove('show');
+  renderStoreListPage('');
+}
+
+function openStoreInfo(id) {
+  window._viewingStoreId = id;
+  goTo('s-store-info');
+}
+
+// Re-render store list page each time it becomes active
+(function watchStoreListPage() {
+  const _origGoTo = window.goTo;
+  if (typeof _origGoTo !== 'function') return;
+  window.goTo = function(id) {
+    _origGoTo(id);
+    if (id === 's-store-list') {
+      setTimeout(() => {
+        const inp = document.getElementById('sl-page-search-inp');
+        const clr = document.getElementById('sl-page-search-clear');
+        if (inp) inp.value = '';
+        if (clr) clr.classList.remove('show');
+        renderStoreListPage('');
+      }, 30);
+    }
+  };
+})();
 
 function _renderStoreList(query) {
   const list = document.getElementById('store-list');
