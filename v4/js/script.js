@@ -592,6 +592,22 @@ function openFullChatFromPopup() {
   openAiSheet();
 }
 
+function sendFloatChatMsg() {
+  const inp = document.getElementById('float-chat-inp');
+  const text = inp ? inp.value.trim() : '';
+  if (inp) inp.value = '';
+  closeChatPopup();
+  openAiSheet();
+  if (!text) return;
+  setTimeout(() => {
+    const sheetInp = document.getElementById('ai-sheet-inp-field');
+    if (sheetInp) {
+      sheetInp.value = text;
+      sendSheetEdit();
+    }
+  }, 120);
+}
+
 function _floatChipLabel(s) {
   // Trim label to ~36 chars to keep chips one-line-ish
   const max = 38;

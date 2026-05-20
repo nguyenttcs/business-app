@@ -48,20 +48,18 @@
     z-index: 73;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
+    width: 272px;
     max-width: calc(100% - 24px);
+    background: #fff;
+    border: 1px solid #EAE6F5;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
     opacity: 0;
     transform: translateY(8px) scale(.96);
     transform-origin: bottom right;
     transition: opacity .18s ease, transform .18s cubic-bezier(0.34,1.56,0.64,1);
     pointer-events: none
-}
-.float-chat-popup.align-left {
-    align-items: flex-start
-}
-.float-chat-popup.place-below {
-    flex-direction: column-reverse
 }
 .float-chat-popup.show {
     opacity: 1;
@@ -71,62 +69,91 @@
 .float-chip-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    align-items: flex-end
+    gap: 4px;
+    padding: 8px 8px 6px
 }
-.float-chat-popup.align-left .float-chip-list {
-    align-items: flex-start
+.float-chip-list::before {
+    content: 'Suggested';
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #828086;
+    padding: 4px 8px 2px
 }
 .float-chip {
-    background: #fff;
-    border: 1px solid #E5E0F2;
-    border-radius: 16px;
-    padding: 9px 13px;
-    font-size: 12.5px;
+    background: transparent;
+    border: 0;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 13px;
     line-height: 1.35;
     color: #2f2c35;
     cursor: pointer;
-    max-width: 240px;
     text-align: left;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
-    transition: transform .12s, background .12s;
+    transition: background .12s;
     animation: chip-pop .22s cubic-bezier(0.34,1.56,0.64,1) backwards
 }
 .float-chip:nth-child(1) { animation-delay: .02s }
-.float-chip:nth-child(2) { animation-delay: .07s }
-.float-chip:nth-child(3) { animation-delay: .12s }
-.float-chip:active {
-    transform: scale(.97);
-    background: #f5f3ff
-}
+.float-chip:nth-child(2) { animation-delay: .06s }
+.float-chip:nth-child(3) { animation-delay: .10s }
+.float-chip:hover { background: #F6F4FB }
+.float-chip:active { background: #ECE6FA }
 @keyframes chip-pop {
-    from { opacity: 0; transform: translateY(6px) scale(.94) }
-    to   { opacity: 1; transform: translateY(0) scale(1) }
+    from { opacity: 0; transform: translateY(4px) }
+    to   { opacity: 1; transform: translateY(0) }
 }
-.float-chat-open {
-    width: 40px;
-    height: 40px;
+
+/* Input row at bottom of mini panel */
+.float-chat-inp-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border-top: 1px solid #F0EDF7;
+    padding: 8px 8px 8px 14px;
+    animation: chip-pop .22s cubic-bezier(0.34,1.56,0.64,1) .14s backwards
+}
+.float-chat-inp {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 18px;
+    color: #2f2c35;
+    padding: 6px 0;
+    min-width: 0
+}
+.float-chat-inp::placeholder { color: #828086 }
+.float-chat-send, .float-chat-expand {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #7C5CBF, #5f2eea);
-    border: none;
+    border: 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(95,46,234,0.4);
     -webkit-tap-highlight-color: transparent;
-    transition: transform .12s;
-    align-self: flex-end
+    transition: transform .12s, background .12s;
+    flex-shrink: 0
 }
-.float-chat-open:active {
-    transform: scale(.92)
+.float-chat-send {
+    background: linear-gradient(135deg, #7C5CBF, #5f2eea);
+    box-shadow: 0 2px 6px rgba(95,46,234,0.3)
 }
-.float-chat-popup.align-left .float-chat-open {
-    align-self: flex-start
+.float-chat-send:active { transform: scale(.92) }
+.float-chat-expand {
+    background: #F1EEF9;
+    color: #5f2eea
 }
+.float-chat-expand svg path { stroke: #5f2eea }
+.float-chat-expand:active { transform: scale(.92); background: #E5DEF7 }
 
 .stepbar {
     background: #fff;
