@@ -866,6 +866,8 @@ function applyStore(id) {
   // Persistent store chips (Home nav + coming-soon screen headers)
   document.querySelectorAll('.sc-chip-name-sync').forEach(el => { el.textContent = s.name; });
   document.querySelectorAll('.sc-chip-logo-sync').forEach(el => { el.style.background = s.color; });
+  // Store-switch buttons in nav (Booking/Message/Report) — colored tile matches selected store
+  document.querySelectorAll('.sc-store-bg-sync').forEach(el => { el.style.background = s.color; });
 
   // Income card
   const incVal = document.getElementById('hm-income-val');
