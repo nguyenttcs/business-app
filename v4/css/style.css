@@ -155,6 +155,108 @@
 .float-chat-expand svg path { stroke: #5f2eea }
 .float-chat-expand:active { transform: scale(.92); background: #E5DEF7 }
 
+/* ── FAKE iOS KEYBOARD (simulation only) ── */
+.fake-kbd {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80;
+    background: #D1D5DB;
+    padding: 6px 3px 0;
+    transform: translateY(100%);
+    transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif
+}
+.fake-kbd.show {
+    transform: translateY(0);
+    pointer-events: auto
+}
+.fk-predict {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4px 6px;
+    height: 38px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08)
+}
+.fk-pred-item {
+    font-size: 15px;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.001)
+}
+.fk-pred-dim { color: #000; opacity: 0.6 }
+.fk-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 3px;
+    height: 46px
+}
+.fk-row-2 {
+    padding-left: 22px;
+    padding-right: 22px
+}
+.fk-row-bot {
+    height: 46px;
+    gap: 6px
+}
+.fk-key {
+    flex: 1;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #000;
+    min-width: 0;
+    cursor: default;
+    -webkit-tap-highlight-color: transparent
+}
+.fk-key-fn {
+    background: #ABB2BD;
+    font-size: 16px;
+    color: #000;
+    flex: 0 0 32px
+}
+.fk-key-123 { flex: 0 0 42px; font-size: 13px }
+.fk-key-globe { flex: 0 0 38px }
+.fk-key-space { flex: 1.6; font-size: 13px; color: #444; font-weight: 400 }
+.fk-key-return { flex: 0 0 76px; font-size: 13px }
+.fk-home-bar {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.fk-home-bar > span {
+    width: 135px;
+    height: 5px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.55)
+}
+
+/* Popup override when keyboard is up — anchor input above keyboard */
+.phone.kbd-up .float-chat-popup {
+    top: auto !important;
+    bottom: 306px !important;
+    transition: bottom 0.22s cubic-bezier(0.32, 0.72, 0, 1), opacity .18s ease, transform .18s cubic-bezier(0.34,1.56,0.64,1)
+}
+/* FAB locked while keyboard up — JS handles its position to track popup */
+.phone.kbd-up .float-chat-btn {
+    pointer-events: none
+}
+.phone.kbd-up .float-chat-btn.wobbling {
+    animation: none !important
+}
+
 .stepbar {
     background: #fff;
     padding: 12px 16px 10px;

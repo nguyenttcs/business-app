@@ -585,12 +585,104 @@ function closeChatPopup() {
   const bd = document.getElementById('float-chat-popup-backdrop');
   if (pop) pop.classList.remove('show');
   if (bd) bd.classList.remove('open');
+  hideFakeKbd();
+}
+
+let _fabSaved = null;
+let _popupSaved = null;
+const _KBD_FAB_TRANSITION = 'left 0.22s cubic-bezier(0.32,0.72,0,1), top 0.22s cubic-bezier(0.32,0.72,0,1)';
+function showFakeKbd() {
+  const kbd = document.getElementById('fake-kbd');
+  const phone = document.querySelector('.phone');
+  const fab = document.getElementById('float-chat-btn');
+  const popup = document.getElementById('float-chat-popup');
+  if (!phone) return;
+  if (kbd) kbd.classList.add('show');
+
+  // Normalize popup anchor to `bottom` so the CSS transition to bottom:306 is smooth
+  if (popup && !_popupSaved) {
+    _popupSaved = { top: popup.style.top, bottom: popup.style.bottom };
+    if (popup.style.top && popup.style.top !== 'auto') {
+      const popupRect = popup.getBoundingClientRect();
+      const phoneRect = phone.getBoundingClientRect();
+      popup.style.top = 'auto';
+      popup.style.bottom = (phoneRect.bottom - popupRect.bottom) + 'px';
+      popup.offsetHeight; // force reflow
+    }
+  }
+
+  // Compute FAB target while popup is still in its original position (offsetHeight valid)
+  let fabTargetLeft = null, fabTargetTop = null;
+  if (fab && popup) {
+    const phoneRect = phone.getBoundingClientRect();
+    const popupH = popup.offsetHeight || 200;
+    const fabW = fab.offsetWidth, fabH = fab.offsetHeight;
+    const POPUP_BOTTOM = 306, GAP = 8;
+    fabTargetTop = phoneRect.height - POPUP_BOTTOM - popupH - GAP - fabH;
+    const popRight = parseFloat(popup.style.right);
+    const popLeft = parseFloat(popup.style.left);
+    if (!isNaN(popRight)) fabTargetLeft = phoneRect.width - popRight - fabW;
+    else if (!isNaN(popLeft)) fabTargetLeft = popLeft;
+    else fabTargetLeft = phoneRect.width - fabW - 8;
+  }
+
+  // Trigger transitions: popup slides up (CSS), FAB slides up (inline below)
+  phone.classList.add('kbd-up');
+
+  if (fab && fabTargetLeft !== null && !_fabSaved) {
+    _fabSaved = {
+      left: fab.style.left, top: fab.style.top,
+      right: fab.style.right, bottom: fab.style.bottom,
+      transition: fab.style.transition
+    };
+    fab.style.transition = _KBD_FAB_TRANSITION;
+    fab.style.right = 'auto';
+    fab.style.bottom = 'auto';
+    fab.style.left = fabTargetLeft + 'px';
+    fab.style.top = fabTargetTop + 'px';
+  }
+}
+function hideFakeKbd() {
+  const kbd = document.getElementById('fake-kbd');
+  const phone = document.querySelector('.phone');
+  if (kbd) kbd.classList.remove('show');
+  if (phone) phone.classList.remove('kbd-up');
+
+  const fab = document.getElementById('float-chat-btn');
+  if (fab && _fabSaved) {
+    fab.style.transition = _KBD_FAB_TRANSITION;
+    fab.style.left = _fabSaved.left;
+    fab.style.top = _fabSaved.top;
+    fab.style.right = _fabSaved.right;
+    fab.style.bottom = _fabSaved.bottom;
+    const saved = _fabSaved;
+    _fabSaved = null;
+    setTimeout(() => { fab.style.transition = saved.transition || ''; }, 240);
+  }
+
+  const popup = document.getElementById('float-chat-popup');
+  if (popup && _popupSaved) {
+    const saved = _popupSaved;
+    _popupSaved = null;
+    // Restore original anchor after CSS transition completes
+    setTimeout(() => {
+      popup.style.top = saved.top;
+      popup.style.bottom = saved.bottom;
+    }, 240);
+  }
 }
 
 function openFullChatFromPopup() {
   closeChatPopup();
   openAiSheet();
 }
+
+(function initFloatChatInpKbd() {
+  const inp = document.getElementById('float-chat-inp');
+  if (!inp) return;
+  inp.addEventListener('focus', showFakeKbd);
+  inp.addEventListener('blur', hideFakeKbd);
+})();
 
 function sendFloatChatMsg() {
   const inp = document.getElementById('float-chat-inp');
@@ -651,11 +743,18 @@ function openChatPopup() {
     pop.style.bottom = 'auto';
     pop.style.top = (fabRect.bottom - phoneRect.top + GAP) + 'px';
   }
+  const POPUP_W = 272;
+  const EDGE = 8;
+  const maxOff = phoneRect.width - POPUP_W - EDGE;
   if (alignRight) {
-    pop.style.right = (phoneRect.right - fabRect.right) + 'px';
+    let off = phoneRect.right - fabRect.right;
+    off = Math.max(EDGE, Math.min(off, maxOff));
+    pop.style.right = off + 'px';
     pop.style.left = 'auto';
   } else {
-    pop.style.left = (fabRect.left - phoneRect.left) + 'px';
+    let off = fabRect.left - phoneRect.left;
+    off = Math.max(EDGE, Math.min(off, maxOff));
+    pop.style.left = off + 'px';
     pop.style.right = 'auto';
   }
   pop.style.transformOrigin =
