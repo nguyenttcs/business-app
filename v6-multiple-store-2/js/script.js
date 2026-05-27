@@ -868,6 +868,10 @@ function applyStore(id) {
   document.querySelectorAll('.sc-chip-logo-sync').forEach(el => { el.style.background = s.color; });
   // Store-switch buttons in nav (Booking/Message/Report) — colored tile matches selected store
   document.querySelectorAll('.sc-store-bg-sync').forEach(el => { el.style.background = s.color; });
+  // Initial text sync across home store ico + nav switch buttons
+  const homeIcoInit = document.getElementById('hm-store-ico-init');
+  if (homeIcoInit) homeIcoInit.textContent = s.initial;
+  document.querySelectorAll('.sc-store-init-sync').forEach(el => { el.textContent = s.initial; });
 
   // Income card
   const incVal = document.getElementById('hm-income-val');
